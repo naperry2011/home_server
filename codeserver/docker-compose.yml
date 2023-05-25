@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  codeserver:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: codeserver
+    # networks:
+    #   - whatever network that you have connected
+    ports:
+      - 8443:8443 #you can change this port if need be
+    restart: unless-stopped
+    volumes:
+      - /path to appdata/:/array
+      - /path to/data/appdata/config:/config
+    environment:
+      - DEFAULT_WORKSPACE=/config/workspace/
+      # - TZ=etc/utc
+      # - PUID=XXXX
+      # - GUID=XXXX

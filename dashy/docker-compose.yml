@@ -1,0 +1,37 @@
+#This is just one of many home servers that you can have in your persnal serval. I chose dashy because it is the best looking to me and easier to understand. I still have to get a better understand on adding widges but that's the purpose of the github. keep the notes and progression showing
+---
+version: "3.8"
+# I always personally set up my own network for practice and understanding in my docker compose containers. easier to maintain and cleanier in my opinion 
+# networks:
+#   proxynet:
+#     external: <> true or false
+#     driver: <> usually bridge but can be whatever 
+services:
+  dashy:
+    # To build from source, replace 'image: lissy93/dashy' with 'build: .'
+    # build: .
+    image: lissy93/dashy
+    container_name: Haru_Home
+    # Pass in your config file below, by specifying the path on your host machine
+    volumes:
+      # - /root/my-config.yml:/app/public/conf.yml if you have folders in your set make sure they are mapped correctly also config.yml first then end with conf.yml
+      - /root/icons:/app/public/item-icons/icons 
+    # networks:
+        # make sure you place it on a network
+    ports:
+      - 4000:80 #you can change the port if you would like. I would recommend it
+    # Set any environmental variables
+    environment:
+      - NODE_ENV=production
+    # Specify your user ID and group ID. You can find this by running `id -u` and `id -g`
+      - PUID=XXXX
+      - PGID=XXXX
+    # Specify restart policy
+    restart: unless-stopped
+    # Configure healthchecks
+    healthcheck:
+      test: ['CMD', 'node', '/app/services/healthcheck']
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

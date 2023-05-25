@@ -1,1 +1,16 @@
 # This is where you will post all your code from you server, clearn up with all secure information then post it on github. 
+version: "3"
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - /docker_apps/plex/appdata/:/config
+      # - /<location>/<of>/plex/:/media
+    environment:
+      - VERSION=docker
+      # - TZ=Where/you live timezone
+      # - PUID=XXXX
+      # - GUID=XXXX
